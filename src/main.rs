@@ -6,6 +6,7 @@ mod modify;
 fn main() {
     let options = vec![
         "Add Entry".green(),
+        "List Entries".blue(),
         "Modify Entry".yellow(),
         "Delete Entry".red(),
     ];
@@ -16,13 +17,18 @@ fn main() {
         .interact()
         .unwrap();
     match selection {
-        0 => placeholder(),
+        0 => add(),
         1 => placeholder(),
         2 => placeholder(),
+        3 => placeholder(),
         _ => println!("Invalid selection"),
     }
 }
 
 fn placeholder() {
     print!("PACEHOLDER")
+}
+
+fn add() {
+    modify::addie();
 }
