@@ -1,3 +1,4 @@
+use crossterm::style::Stylize;
 use dialoguer::{Input, Select};
 
 struct Entry {
@@ -13,8 +14,8 @@ pub fn addie() {
 
     let estat = Select::new()
         .with_prompt("Enter status")
-        .item("Done")
-        .item("In Progress")
+        .item("Done".green().bold())
+        .item("In Progress".red().bold())
         .interact()
         .unwrap()
         == 0;

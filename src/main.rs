@@ -12,7 +12,7 @@ fn main() {
     ];
 
     let selection = Select::new()
-        .with_prompt("")
+        .with_prompt("Select Action")
         .items(&options)
         .interact()
         .unwrap();
