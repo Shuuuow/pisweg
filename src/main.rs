@@ -4,24 +4,28 @@ use dialoguer::Select;
 mod modify;
 
 fn main() {
-    let options = vec![
-        "Add Entry".green(),
-        "List Entries".blue(),
-        "Modify Entry".yellow(),
-        "Delete Entry".red(),
-    ];
+    loop {
+        let options = vec![
+            "Add Entry".green(),
+            "List Entries".blue(),
+            "Modify Entry".yellow(),
+            "Delete Entry".red(),
+            "Exit".on_red(),
+        ];
 
-    let selection = Select::new()
-        .with_prompt("Select Action")
-        .items(&options)
-        .interact()
-        .unwrap();
-    match selection {
-        0 => add(),
-        1 => placeholder(),
-        2 => placeholder(),
-        3 => placeholder(),
-        _ => println!("Invalid selection"),
+        let selection = Select::new()
+            .with_prompt("\n Select Action")
+            .items(&options)
+            .interact()
+            .unwrap();
+        match selection {
+            0 => add(),
+            1 => placeholder(),
+            2 => placeholder(),
+            3 => placeholder(),
+            4 => break,
+            _ => println!("Invalid selection"),
+        }
     }
 }
 

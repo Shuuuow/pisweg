@@ -1,6 +1,8 @@
 use crossterm::style::Stylize;
 use dialoguer::{Input, Select};
+use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize)]
 struct Entry {
     title: String,
     status: bool,
@@ -25,5 +27,10 @@ pub fn addie() {
         status: estat,
     };
 
-    println!("{} {}", entry.title, entry.status);
+    senddata(entry);
+}
+
+fn senddata(entry: Entry) {
+    let json = serde_json::to_string(&entry).unwrap();
+    println!("{}", json);
 }
