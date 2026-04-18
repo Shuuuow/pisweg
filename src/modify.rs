@@ -38,6 +38,7 @@ fn senddata(entry: Entry) {
         .read(true)
         .write(true)
         .create(true)
+        .append(true)
         .open("data/store.json")
         .unwrap();
     writeln!(file, "{}", json).unwrap();
