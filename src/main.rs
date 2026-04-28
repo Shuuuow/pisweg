@@ -7,9 +7,9 @@ fn main() {
     loop {
         let options = vec![
             "Add Entry".green(),
-            "List Entries".blue(),
-            "Modify Entry".yellow(),
-            "Delete Entry".red(),
+            "List Entries".green(),
+            "Modify Entry".green(),
+            "Delete Entry".green(),
             "Exit".on_red(),
         ];
 
