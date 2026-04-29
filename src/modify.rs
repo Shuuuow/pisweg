@@ -1,6 +1,8 @@
 use crossterm::style::Stylize;
 use dialoguer::{Input, Select};
 use serde::{Deserialize, Serialize};
+use std::fs::OpenOptions;
+use std::io::Write;
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 struct Entry {
@@ -30,7 +32,7 @@ pub fn addie() {
     senddata(entry);
 }
 
-fn senddata(entry: Entry) {
+fn senddata(entry: Entry) -> Result<(), Box<dyn std::error::Error>> {
     /*let json = serde_json::to_string_pretty(&entry).unwrap();
     let mut file = OpenOptions::new()
         .read(true)
@@ -40,4 +42,15 @@ fn senddata(entry: Entry) {
         .open("data/store.json")
         .unwrap();
     writeln!(file, "{}", json).unwrap();*/
+
+    let yaml_output = serde_yaml::to_string(&entry)?;
+    let mut file = OpenOptions::new()
+        .read(true)
+        .write(true)
+        .create(true)
+        .append(true)
+        .open("data/store.yaml")
+        .unwrap();
+    writeln!(file, "{}", yaml_output).unwrap();
+    Ok(())
 }
