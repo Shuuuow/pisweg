@@ -1,3 +1,4 @@
+use std::fs;
 use crossterm::style::Stylize;
 use dialoguer::{Input, Select};
 use serde::{Deserialize, Serialize};
@@ -11,7 +12,7 @@ struct Entry {
 }
 
 pub fn addie() {
-    let etilte = Input::new()
+    let tilte = Input::new()
         .with_prompt("Enter title")
         .interact_text()
         .unwrap();
@@ -25,32 +26,30 @@ pub fn addie() {
         == 0;
 
     let entry = Entry {
-        title: etilte,
+        title: tilte,
         status: estat,
     };
 
-    senddata(entry);
+    insert_data(entry);
 }
 
-fn senddata(entry: Entry) -> Result<(), Box<dyn std::error::Error>> {
-    /*let json = serde_json::to_string_pretty(&entry).unwrap();
-    let mut file = OpenOptions::new()
-        .read(true)
-        .write(true)
-        .create(true)
-        .append(true)
-        .open("data/store.json")
-        .unwrap();
-    writeln!(file, "{}", json).unwrap();*/
+fn insert_data(entry: Entry) {
+    let filename = "data/store.yaml";
 
-    let yaml_output = serde_yaml::to_string(&entry)?;
-    let mut file = OpenOptions::new()
-        .read(true)
-        .write(true)
-        .create(true)
-        .append(true)
-        .open("data/store.yaml")
-        .unwrap();
-    writeln!(file, "{}", yaml_output).unwrap();
-    Ok(())
+    let mut udata: Vec<Entry> = if let Ok(content) = fs::read_to_string(filename) {
+        if content.is_empty() {
+            Vec::new()
+        } else {
+            serde_yaml::from_str(&content).unwrap_or_else(|_| Vec::new())
+        }
+    } else {
+        Vec::new()
+    };
+
+    udata.push(entry);
+
+    let updated_yaml = serde_yaml::to_string(&udata).expect("failed to serialize entry");
+    fs::write(filename, updated_yaml).expect("Data insertion failed.");
+
+    println!("data inseted correctly, number of enteries now {} ", udata.len());
 }
