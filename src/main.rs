@@ -19,8 +19,8 @@ fn main() {
             .interact()
             .unwrap();
         match selection {
-            0 => add(),
-            1 => placeholder(),
+            0 => modify::addie(),
+            1 => modify::list_entries(),
             2 => placeholder(),
             3 => placeholder(),
             4 => break,
@@ -31,8 +31,4 @@ fn main() {
 
 fn placeholder() {
     print!("PACEHOLDER")
-}
-
-fn add() {
-    modify::addie();
 }

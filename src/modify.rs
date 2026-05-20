@@ -1,9 +1,7 @@
-use std::fs;
 use crossterm::style::Stylize;
 use dialoguer::{Input, Select};
 use serde::{Deserialize, Serialize};
-use std::fs::OpenOptions;
-use std::io::Write;
+use std::fs;
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 struct Entry {
@@ -51,5 +49,16 @@ fn insert_data(entry: Entry) {
     let updated_yaml = serde_yaml::to_string(&udata).expect("failed to serialize entry");
     fs::write(filename, updated_yaml).expect("Data insertion failed.");
 
-    println!("data inseted correctly, number of enteries now {} ", udata.len());
+    println!(
+        "data inserted correctly, number of entries now {} ",
+        udata.len()
+    );
+}
+
+pub fn list_entries() {
+    let files = fs::read_to_string("data/store.yaml").expect("Can't read file");
+    let items: Vec<Entry> = serde_yaml::from_str(&files).expect("Invalid YAML");
+    for item in items {
+        println!("{}: {}", item.title, item.status);
+    }
 }
