@@ -7,6 +7,7 @@ use std::fs;
 struct Entry {
     title: String,
     status: bool,
+    id: i32,
 }
 
 pub fn addie() {
@@ -23,9 +24,12 @@ pub fn addie() {
         .unwrap()
         == 0;
 
+    let id_ = rand::random::<i32>();
+
     let entry = Entry {
         title: tilte,
         status: estat,
+        id: id_,
     };
 
     insert_data(entry);
@@ -62,3 +66,5 @@ pub fn list_entries() {
         println!("{}: {}", item.title, item.status);
     }
 }
+
+pub fn del() {}

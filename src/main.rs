@@ -30,5 +30,5 @@ fn main() {
 }
 
 fn placeholder() {
-    print!("PACEHOLDER")
+    print!("PLACEHOLDER")
 }
