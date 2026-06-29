@@ -7,7 +7,7 @@ use std::fs;
 struct Entry {
     title: String,
     status: bool,
-    id: i32,
+    id: [u32; 2],
 }
 
 pub fn addie() {
@@ -24,7 +24,7 @@ pub fn addie() {
         .unwrap()
         == 0;
 
-    let id_ = rand::random::<i32>();
+    let id_: [u32; 2] = [if estat { 0 } else { 1 }, rand::random_range(0..9999)];
 
     let entry = Entry {
         title: tilte,
@@ -67,4 +67,5 @@ pub fn list_entries() {
     }
 }
 
+#[allow(dead_code)]
 pub fn del() {}
