@@ -10,6 +10,7 @@ fn main() {
             "List Entries".green(),
             "Modify Entry".green(),
             "Delete Entry".green(),
+            "Search Entries".green(),
             "Exit".on_red(),
         ];
 
@@ -21,14 +22,12 @@ fn main() {
         match selection {
             0 => modify::addie(),
             1 => modify::list_entries(),
-            2 => placeholder(),
-            3 => placeholder(),
-            4 => break,
+            2 => modify::modify_entry(),
+            3 => modify::del(),
+            4 => modify::search_entries(),
+            5 => break,
             _ => println!("Invalid selection"),
         }
     }
 }
 
-fn placeholder() {
-    print!("PLACEHOLDER")
-}
